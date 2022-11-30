@@ -6,5 +6,11 @@
 
 import { start } from "$fresh/server.ts";
 import manifest from "./fresh.gen.ts";
+import styledComponents from "./styled-components.tsx";
 
-await start(manifest);
+await start(manifest, {
+    plugins :[
+        styledComponents()
+    ]
+});
+

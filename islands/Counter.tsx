@@ -3,6 +3,7 @@ import { Button } from "../components/Button.tsx";
 
 interface CounterProps {
   start: number;
+  styled?: boolean;
 }
 
 export default function Counter(props: CounterProps) {
