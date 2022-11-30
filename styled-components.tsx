@@ -4,6 +4,7 @@ import Home from './routes/index.tsx';
 import { Plugin } from '$fresh/server.ts'
 import { renderToString } from "preact-render-to-string";
 import Greet from "./routes/[name].tsx";
+import { DOMParser } from "https://deno.land/x/deno_dom/deno-dom-wasm.ts";
 
 
 export default function styledComponents(): Plugin {
@@ -25,19 +26,21 @@ export default function styledComponents(): Plugin {
         </>)
       );
       const styleTags = sheet.getStyleTags();
+      const doc = new DOMParser().parseFromString(styleTags, "text/html");
+      if(doc == null) return {
+        styles: []
+      }
+      const matches : string [] = [...doc.querySelectorAll('style')]
+        .map(style => style.textContent)
+        .filter(x => x != null && x.length > 0)
+        .map( x=> x as string);
       return {
-          styles: styleTags
-          .replaceAll("<style([\\s\\S]+?)</style", "")
-          .split(">")
-          .map(x => x
-            .trim())
-            .filter(x => x.length > 0)
-            .map(x => {
-            return {
-              cssText: x,
-              id: '___STYLED'
-            }
-          })
+        styles: matches.map(x => {
+          return {
+            cssText: x,
+            id: '___STYLED'
+          }
+        })
       }
       } catch (error) {
         console.error(error);
