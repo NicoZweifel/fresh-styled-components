@@ -4,7 +4,7 @@ import Home from './routes/index.tsx';
 import { Plugin } from '$fresh/server.ts'
 import { renderToString } from "preact-render-to-string";
 import Greet from "./routes/[name].tsx";
-import { DOMParser } from "https://deno.land/x/deno_dom/deno-dom-wasm.ts";
+import { DOMParser } from "https://deno.land/x/deno_dom@v0.1.36-alpha/deno-dom-wasm.ts";
 
 
 export default function styledComponents(): Plugin {
