@@ -6,7 +6,7 @@
 
 import { start } from "$fresh/server.ts";
 import manifest from "./fresh.gen.ts";
-import styledComponents from "./styled-components.tsx";
+import styledComponents from "./styled/styled-components.ts";
 
 await start(manifest, {
     plugins :[
